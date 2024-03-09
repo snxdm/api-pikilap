@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=no">
     <title>文本</title>
     <script>
-        window.onload = function() {
+        window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
             const textType = urlParams.get('type');
             let textFile = '';
@@ -15,10 +15,10 @@
             } else if (textType === 'ac') {
                 textFile = 'txt/TextAc.txt';
             } else if (textType === 'qh') {
-                textFlie = 'txt/TextQh.txt';
+                textFile = 'txt/TextQh.txt';
             } else if (textType === 'sh') {
-                textFlie = 'txt/TextSh.txt';
-            else {
+                textFile = 'txt/TextSh.txt';
+            } else {
                 displayError();
                 return;
             }
@@ -26,7 +26,6 @@
             fetch(textFile)
                 .then(response => {
                     if (!response.ok) {
-                        displayError();
                         throw new Error('Failed to fetch text file');
                     }
                     return response.text();
