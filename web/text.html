@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9, user-scalable=no">
+    <title>Pikilap API</title>
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/jBox.all.css">
+    <style>
+        #apiContainer {
+            white-space: nowrap;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 60%;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="sidebar" id="sidebar">
+            <h2 class="h2-menu">导航</h2>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="img.html">图片</a></li>
+                    <li><a href="#" class="in">文本</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="content">
+
+            <!-- 主内容start -->
+            <h1>Pikilap API 'Text</h1>
+            <div id="apiContainer">
+                <h3>API链接</h3>
+                <span class="code-in"><code id="apiLink1" onclick="noticeDownCopy('https://api-pikilap.pages.dev/text/?type={class}', 'text已复制！')">https://api-pikilap.pages.dev/text/?type={class}</code></span>
+            </div>
+            <!-- 主内容end -->
+
+            <br><br>
+
+            <!-- img-json start -->
+            <h3>Img-Text</h3>
+            <h5>向<span style="color: black; text-decoration: underline dashed;">此链接</span>请求会得到如下内容</h5>
+            <code class="code-json">{<br>
+                "Text: "从善如登，从恶如崩。",<br>
+                "TextLen": 10<br>
+                }</code>
+            <h5>类型如下</h5>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Text</th>
+                        <td>文本</td>
+                    </tr>
+                    <tr>
+                        <th>TextLen</th>
+                        <td>文本字符数</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>class可选如下</h5>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>ac</th>
+                        <td>漫画类文本</td>
+                        <td onclick="noticeDownCopy('https://api-pikilap.pages.dev/text/?type=ac', 'ac已复制！')">type ac</td>
+                    </tr>
+                    <tr>
+                        <th>qh</th>
+                        <td>情话类文本</td>
+                        <td onclick="noticeDownCopy('https://api-pikilap.pages.dev/text/?type=qh', 'qh已复制！')">type qh</td>
+                    </tr>
+                    <tr>
+                        <th>sh</th>
+                        <td>骚话类文本</td>
+                        <td onclick="noticeDownCopy('https://api-pikilap.pages.dev/text/?type=sh', 'sh已复制！')">type sh</td>
+                    </tr>
+                    <tr>
+                        <th>wx</th>
+                        <td>文学类文本</td>
+                        <td onclick="noticeDownCopy('https://api-pikilap.pages.dev/text/?type=wx', 'wx已复制！')">type wx</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- img-json end -->
+        </div>
+    </div>
+
+    <button class="toggle-btn" onclick="toggleSidebar()" id="toggle-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <script src="js/sidebar.js"></script>
+    <script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="js/jBox.all.js"></script>
+    <script src="js/Demo.js"></script>
+
+</body>
+
+</html>

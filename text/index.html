@@ -14,7 +14,11 @@
                 textFile = 'txt/TextWx.txt';
             } else if (textType === 'ac') {
                 textFile = 'txt/TextAc.txt';
-            } else {
+            } else if (textType === 'qh') {
+                textFlie = 'txt/TextQh.txt';
+            } else if (textType === 'sh') {
+                textFlie = 'txt/TextSh.txt';
+            else {
                 displayError();
                 return;
             }
