@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Navigation</title>
+</head>
+<body>
+  <div id="imageInfo">
+    <pre id="jsonOutput"></pre>
+  </div>
+
+  <script>
+    window.onload = function() {
+      fetch('./img/names.json')
+        .then(response => response.json())
+        .then(data => {
+          const randomIndex = Math.floor(Math.random() * data.length);
+          const randomFilename = data[randomIndex];
+          const currentPageURL = window.location.href;
+          const baseURL = currentPageURL.substring(0, currentPageURL.lastIndexOf("/") + 1);
+          const fileURL = `${baseURL}img/${randomFilename}`;
+          window.location.href = fileURL;
+        })
+        .catch(error => console.error('Error fetching JSON:', error));
+    };
+  </script>
+</body>
+</html>
