@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=no">
+<title>Image</title>
+</head>
+<body>
+  <div id="imageInfo">
+    <pre id="jsonOutput"></pre>
+  </div>
+
+  <script>
+    fetch('./img/names.json')
+      .then(response => response.json())
+      .then(data => {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        const randomFilename = data[randomIndex];
+        const filenameElement = document.createElement('span');
+        filenameElement.textContent = randomFilename;
+
+        const currentPageURL = window.location.href;
+        const baseURL = currentPageURL.substring(0, currentPageURL.lastIndexOf("/") + 1);
+        const fileURL = `${baseURL}img/${randomFilename}`;
+
+        const fileURLElement = document.createElement('span');
+        fileURLElement.textContent = fileURL;
+        
+        fetch(fileURL)
+          .then(response => response.blob())
+          .then(blob => {
+            const fileSize = (blob.size / 1024).toFixed(2);
+            const img = new Image();
+            img.onload = function() {
+              const fileWidth = img.width;
+              const fileHeight = img.height;
+              const jsonOutput = {
+                filename: randomFilename,
+                fileurl: fileURL,
+                filesize: `${fileSize} KB`,
+                filewh: `${fileWidth}x${fileHeight}`
+              };
+              document.getElementById('jsonOutput').textContent = JSON.stringify(jsonOutput, null, 2);
+            };
+            img.src = fileURL;
+          })
+          .catch(error => console.error('Error fetching file info:', error));
+      })
+      .catch(error => console.error('Error fetching JSON:', error));
+  </script>
+</body>
+</html>

@@ -7,54 +7,58 @@
     <title>文本</title>
     <script>
         window.onload = function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const textType = urlParams.get('type');
-            let textFile = '';
-            if (textType === 'wx') {
-                textFile = 'txt/TextWx.txt';
-            } else if (textType === 'ac') {
-                textFile = 'txt/TextAc.txt';
-            } else if (textType === 'qh') {
-                textFile = 'txt/TextQh.txt';
-            } else if (textType === 'sh') {
-                textFile = 'txt/TextSh.txt';
-            } else {
-                displayError();
-                return;
+    const urlParams = new URLSearchParams(window.location.search);
+    const textType = urlParams.get('type');
+    let textFile = '';
+    if (textType === 'wx') {
+        textFile = 'txt/TextWx.txt';
+    } else if (textType === 'ac') {
+        textFile = 'txt/TextAc.txt';
+    } else if (textType === 'qh') {
+        textFile = 'txt/TextQh.txt';
+    } else if (textType === 'sh') {
+        textFile = 'txt/TextSh.txt';
+    } else {
+        displayError();
+        return;
+    }
+
+    fetch(textFile)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch text file');
             }
+            return response.text();
+        })
+        .then(data => {
+            const lines = data.split('\n');
+            const randomIndex = Math.floor(Math.random() * lines.length);
+            const randomSentence = lines[randomIndex];
+            const textLength = randomSentence.length;
 
-            fetch(textFile)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch text file');
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    const lines = data.split('\n');
-                    const randomIndex = Math.floor(Math.random() * lines.length);
-                    const randomSentence = lines[randomIndex];
-                    const textLength = randomSentence.length;
-
-                    const jsonData = {
-                        Text: randomSentence,
-                        TextLen: textLength
-                    };
-
-                    document.getElementById('output').innerText = JSON.stringify(jsonData, null, 2);
-                })
-                .catch(error => {
-                    console.error('Error fetching text:', error);
-                    displayError();
-                });
-        };
-
-        function displayError() {
-            const errorData = {
-                error: 'Error fetching text'
+            const jsonData = {
+                Text: randomSentence,
+                TextLen: textLength
             };
-            document.getElementById('output').innerText = JSON.stringify(errorData, null, 2);
-        }
+
+            const formattedJson = JSON.stringify(jsonData, null, 2);
+            document.getElementById('output').innerText = formattedJson;
+            document.getElementById('output').innerHTML = "<pre>" + formattedJson + "</pre>";
+        })
+        .catch(error => {
+            console.error('Error fetching text:', error);
+            displayError();
+        });
+};
+
+function displayError() {
+    const errorData = {
+        error: 'Error fetching text'
+    };
+    const formattedErrorJson = JSON.stringify(errorData, null, 2);
+    document.getElementById('output').innerText = formattedErrorJson;
+    document.getElementById('output').innerHTML = "<pre>" + formattedErrorJson + "</pre>";
+}
     </script>
 </head>
 
